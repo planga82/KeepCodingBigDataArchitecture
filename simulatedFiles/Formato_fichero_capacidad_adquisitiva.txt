@@ -1,0 +1,13 @@
+El formato del fichero de capacidades adquisitivas sera el siguiente.
+es un fichero simulado, por lo que la estructura la he definido yo.
+
+Fichero cuyos campos son separados por ,
+
+
+PAIS, NOM_CIUDAD,  CAP_ADQ, NUM_HABITANTES
+
+PAIS = Nombre del pais
+NOM_CIUDAD =  Nombre de la ciudad
+CAP_ADQ = capacidad adquisitiva
+NUM_HABITANTES = Numero de habitantes de la ciudad 
+

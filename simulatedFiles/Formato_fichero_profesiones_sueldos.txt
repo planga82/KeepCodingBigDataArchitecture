@@ -1,0 +1,12 @@
+El formato del fichero de profesiones con sueldos sera el siguiente.
+es un fichero simulado, por lo que la estructura la he definido yo.
+
+Fichero cuyos campos son separados por ,
+
+
+NOM_PROF, DESC_PROF, SUELDO_MEDIO, NUM_EMPLEOS
+
+NOM_PROF = Nombre de la profesion 
+DESC_PROF = descripcion de la profesion 
+SUELDO_MEDIO = sueldo medo de la profesion en dolares 
+NUM_EMPLEOS = numero de empleos estimado de la profesion
