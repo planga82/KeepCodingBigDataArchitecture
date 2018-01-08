@@ -1,0 +1,97 @@
+create database kcdba;
+
+use kcdba;
+
+create external table capacidad_adquisitiva_RAW
+(PAIS string, 
+NOM_CIUDAD string,  
+CAP_ADQ string, 
+NUM_HABITANTES string)
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ","
+STORED AS TEXTFILE
+location "/kcbda/rawFiles/Capacidad_adquisitiva";
+
+create external table profesiones_sueldos_RAW
+(NOM_PROF string, 
+DESC_PROF string,  
+SUELDO_MEDIO string, 
+NUM_EMPLEOS string)
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ","
+STORED AS TEXTFILE
+location "/kcbda/rawFiles/Profesiones_sueldos";
+
+create external table actividad_redes_RAW
+(USUARIO string, 
+NUM_TEEWTS string,  
+FECHA string)
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ","
+STORED AS TEXTFILE
+location "/kcbda/rawFiles/actividadRedes";
+
+create external table perfiles_Usuario_RAW
+(edad_ini string, 
+edad_fin string,  
+perfil string)
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ","
+STORED AS TEXTFILE
+location "/kcbda/rawFiles/Perfiles_Usuario";
+
+create external table ODS_DM_DIRECCIONES_RAW
+(ID_DIRECCION string, 
+DE_DIRECCION string,  
+DE_CP string,
+DE_CIUDAD string,
+DE_ESTADO string,
+DE_PAIS string)
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ","
+STORED AS TEXTFILE
+location "/kcbda/ODS_DM_DIRECCIONES";
+
+create external table ODS_DM_PROFESIONES_RAW
+(ID_PROFESION string, 
+DE_PROFESION string,  
+FC_INSERT string,
+FC_MODIFICACION string)
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ","
+STORED AS TEXTFILE
+location "/kcbda/ODS_DM_PROFESIONES";
+
+create external table ODS_HC_CLIENTES_RAW
+(ID_CLIENTE string, 
+NOMBRE_CLIENTE string, 
+APELLIDOS_CLIENTE string, 
+NUM_DOC_CLIENTE string, 
+ID_SEXO string, 
+ID_DIRECCION_CLIENTE string, 
+EMAIL string, 
+FC_NACIMIENTO string, 
+ID_PROFESION string, 
+ID_COMPANYIA string, 
+FC_INSERT string, 
+FC_MODIFICACION string)
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ","
+STORED AS TEXTFILE
+location "/kcbda/ODS_HC_CLIENTES";
+
+create external table ODS_HC_SERVICIOS_RAW
+(ID_SERVICIO string,
+ID_CLIENTE string,
+ID_PRODUCTO string,
+PUNTO_ACCESO string,
+ID_AGENTE string,
+DE_CANAL string,
+FC_INSERT string,
+FC_MODIFICACION string)
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ","
+STORED AS TEXTFILE
+location "/kcbda/ODS_HC_SERVICIOS";
+
+
+
+
+
+
+
+
+
+
