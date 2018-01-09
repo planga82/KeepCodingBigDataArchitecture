@@ -1,0 +1,62 @@
+
+use kcdba;
+
+create table capacidad_adquisitiva(
+	ciudad string,
+	capacidad_adquisitiva_media bigint,
+	ins_date date)
+ROW FORMAT DELIMITED FIELDS TERMINATED BY "|"
+STORED AS AVRO;
+
+create table sueldos_profesion(
+	profesion string,
+	sueldo_medio bigint,
+	ins_date date)
+ROW FORMAT DELIMITED FIELDS TERMINATED BY "|"
+STORED AS AVRO;
+
+create table actividad_redes(
+	usuario string,
+	promedio_tweets bigint,
+	ins_date date)
+ROW FORMAT DELIMITED FIELDS TERMINATED BY "|"
+STORED AS AVRO;
+
+create table perfiles_usuario(
+	edad_ini int, 
+	edad_fin int,  
+	perfil string,
+	ins_date date)
+ROW FORMAT DELIMITED FIELDS TERMINATED BY "|"
+STORED AS AVRO;
+
+create external table ods_dm_direcciones
+(id_direccion bigint, 
+ ciudad string,
+ ins_date date)
+ROW FORMAT DELIMITED FIELDS TERMINATED BY "|"
+STORED AS AVRO;
+
+create external table ods_dm_profesiones
+(id_profesion bigint, 
+ de_profesion string,
+ ins_date date)
+ROW FORMAT DELIMITED FIELDS TERMINATED BY "|"
+STORED AS AVRO;
+
+create external table ods_hc_clientes
+(id_cliente bigint, 
+nombre_apellidos string, 
+id_direccion bigint, 
+fc_nacimiento date,
+ins_date date)
+ROW FORMAT DELIMITED FIELDS TERMINATED BY "|"
+STORED AS AVRO;
+
+create external table ods_hc_servicios
+(id_cliente bigint,
+canal_contratacion string,
+ins_date date)
+ROW FORMAT DELIMITED FIELDS TERMINATED BY "|"
+STORED AS AVRO;
+

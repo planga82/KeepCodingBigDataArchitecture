@@ -1,0 +1,13 @@
+
+
+INSERT INTO capacidad_adquisitiva(ciudad,capacidad_adquisitiva_media,ins_date)
+SELECT upper(trim(nom_ciudad)),cast(cap_adq as bigint),CURRENT_DATE FROM capacidad_adquisitiva_raw;
+
+INSERT INTO sueldos_profesion(profesion,sueldo_medio,ins_date)
+select upper(trim(nom_prof)),cast(sueldo_medio as bigint),CURRENT_DATE FROM profesiones_sueldos_raw;
+
+INSERT INTO actividad_redes(usuario,promedio_tweets,ins_date)
+select upper(trim(usuario)),avg(num_teewts), CURRENT_DATE from actividad_redes_raw group by usuario,fecha;
+
+INSERT INTO perfiles_usuario(edad_ini,edad_fin,perfil,ins_date)
+select cast(edad_ini as int),cast(edad_fin as int),upper(trim(perfil)),CURRENT_DATE from perfiles_Usuario_raw;
