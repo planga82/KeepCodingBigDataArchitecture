@@ -1,0 +1,8 @@
+
+insert into tablon_clientes(id_cliente,sueldo_aprox,capacidad_adq,grado_act_redes,canal_pref_contratacion,perfil_usuario)
+
+
+select sp.sueldo_medio, cli.id_cliente
+from ods_dm_profesiones prof
+inner join sueldos_profesion sp on sp.profesion = prof.de_profesion
+inner join ods_hc_clientes cli on prof.id_profesion = cli.id_profesion;
