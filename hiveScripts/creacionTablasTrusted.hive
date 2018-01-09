@@ -30,21 +30,21 @@ create table perfiles_usuario(
 ROW FORMAT DELIMITED FIELDS TERMINATED BY "|"
 STORED AS AVRO;
 
-create external table ods_dm_direcciones
+create table ods_dm_direcciones
 (id_direccion bigint, 
  ciudad string,
  ins_date date)
 ROW FORMAT DELIMITED FIELDS TERMINATED BY "|"
 STORED AS AVRO;
 
-create external table ods_dm_profesiones
+create table ods_dm_profesiones
 (id_profesion bigint, 
  de_profesion string,
  ins_date date)
 ROW FORMAT DELIMITED FIELDS TERMINATED BY "|"
 STORED AS AVRO;
 
-create external table ods_hc_clientes
+create table ods_hc_clientes
 (id_cliente bigint, 
 nombre_apellidos string, 
 id_direccion bigint, 
@@ -53,7 +53,7 @@ ins_date date)
 ROW FORMAT DELIMITED FIELDS TERMINATED BY "|"
 STORED AS AVRO;
 
-create external table ods_hc_servicios
+create table ods_hc_servicios
 (id_cliente bigint,
 canal_contratacion string,
 ins_date date)

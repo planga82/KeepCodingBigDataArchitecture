@@ -11,3 +11,8 @@ select upper(trim(usuario)),avg(num_teewts), CURRENT_DATE from actividad_redes_r
 
 INSERT INTO perfiles_usuario(edad_ini,edad_fin,perfil,ins_date)
 select cast(edad_ini as int),cast(edad_fin as int),upper(trim(perfil)),CURRENT_DATE from perfiles_Usuario_raw;
+
+INSERT INTO ods_dm_direcciones(id_direccion,ciudad,ins_date)
+select  cast(id_direccion as int),upper(trim(de_ciudad)),CURRENT_DATE from ods_dm_direcciones_raw;
+
+
