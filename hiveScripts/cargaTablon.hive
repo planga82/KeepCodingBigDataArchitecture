@@ -1,8 +1,40 @@
+use kcdba;
 
-insert into tablon_clientes(id_cliente,sueldo_aprox,capacidad_adq,grado_act_redes,canal_pref_contratacion,perfil_usuario)
-
-
-select sp.sueldo_medio, cli.id_cliente
+CREATE TEMPORARY TABLE tmp_sueldo_medio as 
+select cli.id_cliente,sp.sueldo_medio
 from ods_dm_profesiones prof
 inner join sueldos_profesion sp on sp.profesion = prof.de_profesion
 inner join ods_hc_clientes cli on prof.id_profesion = cli.id_profesion;
+
+CREATE TEMPORARY TABLE tmp_cap_adq as
+select cli.id_cliente,cap.capacidad_adquisitiva_media
+from ods_dm_direcciones dir
+inner join capacidad_adquisitiva cap on dir.ciudad = cap.ciudad
+inner join ods_hc_clientes cli on dir.id_direccion = cli.id_direccion;
+
+CREATE TEMPORARY TABLE tmp_can_con as
+select c.id_cliente, c.canal_contratacion
+from
+(select d.id_cliente, d.canal_contratacion, count(canal_contratacion) as counter from ods_hc_servicios d group by d.id_cliente, d.canal_contratacion) c
+join
+(select f.id_cliente, max(f.counter) as countmax 
+ from
+	(select cnt.id_cliente, cnt.canal_contratacion, count(canal_contratacion) as counter 
+	 from ods_hc_servicios cnt 
+	 group by id_cliente, canal_contratacion) f
+group by id_cliente) g
+where c.counter = g.countmax;
+
+insert into tablon_clientes(id_cliente,sueldo_aprox,capacidad_adq,canal_pref_contratacion)
+select distinct sm.id_cliente, sm.sueldo_medio, cap.capacidad_adquisitiva_media, can.canal_contratacion
+from tmp_sueldo_medio sm
+inner join tmp_cap_adq cap on sm.id_cliente = cap.id_cliente
+inner join tmp_can_con can on sm.id_cliente = can.id_cliente
+
+
+# La actividad en las redes sociales no he podido simularlo porque los usuarios no cuadran
+# El perfil de usuario no he sabido obtenerlo, la edad del cliente sabiendo su fecha de nacimiento sería la siguiente 
+#	cast(year(CURRENT_DATE) as int) - cast(year(fc_nacimiento) as int) as edad
+#	pero nose como con estu buscar en al tabla de perfiles de usuario con hive, ya que estan guardados con un rango.
+# Una posible solución sería guardar con python cada edad de 1 a 100 con la referencia de que perfil de usuario es el suyo 
+# en lugar de un rango.	

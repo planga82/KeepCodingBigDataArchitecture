@@ -1,0 +1,11 @@
+use kcdba;
+
+create table tablon_clientes
+(id_cliente bigint, 
+sueldo_aprox bigint, 
+capacidad_adq string, 
+grado_act_redes string,
+canal_pref_contratacion string,
+perfil_usuario string)
+ROW FORMAT DELIMITED FIELDS TERMINATED BY "|"
+STORED AS ORC;
