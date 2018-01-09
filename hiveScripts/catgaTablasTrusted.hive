@@ -18,10 +18,11 @@ select  cast(id_direccion as int),upper(trim(de_ciudad)),CURRENT_DATE from ods_d
 INSERT INTO ods_dm_profesiones(id_profesion,de_profesion,ins_date)
 select cast(id_profesion as int),upper(trim(de_profesion)),CURRENT_DATE from ods_dm_profesiones_raw;
 
-INSERT INTO ods_hc_clientes(id_cliente, nombre_apellidos, id_direccion, fc_nacimiento,ins_date)
+INSERT INTO ods_hc_clientes(id_cliente, nombre_apellidos, id_direccion,id_profesion, fc_nacimiento,ins_date)
 select cast(id_cliente as bigint), 
      concat(upper(trim(nombre_cliente)),' ',upper(trim(apellidos_cliente))), 
      cast(id_direccion_cliente as bigint),
+     cast(id_profesion as bigint),
      cast(to_date(from_unixtime(unix_timestamp(fc_nacimiento, 'yyyy-MM-dd'))) as date),
      CURRENT_DATE 
 from ods_hc_clientes_raw;

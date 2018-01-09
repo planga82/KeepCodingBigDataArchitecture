@@ -48,6 +48,7 @@ create table ods_hc_clientes
 (id_cliente bigint, 
 nombre_apellidos string, 
 id_direccion bigint, 
+id_profesion bigint,
 fc_nacimiento date,
 ins_date date)
 ROW FORMAT DELIMITED FIELDS TERMINATED BY "|"
