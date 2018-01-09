@@ -1,4 +1,4 @@
-
+use kcdba;
 
 INSERT INTO capacidad_adquisitiva(ciudad,capacidad_adquisitiva_media,ins_date)
 SELECT upper(trim(nom_ciudad)),cast(cap_adq as bigint),CURRENT_DATE FROM capacidad_adquisitiva_raw;
@@ -14,5 +14,21 @@ select cast(edad_ini as int),cast(edad_fin as int),upper(trim(perfil)),CURRENT_D
 
 INSERT INTO ods_dm_direcciones(id_direccion,ciudad,ins_date)
 select  cast(id_direccion as int),upper(trim(de_ciudad)),CURRENT_DATE from ods_dm_direcciones_raw;
+
+INSERT INTO ods_dm_profesiones(id_profesion,de_profesion,ins_date)
+select cast(id_profesion as int),upper(trim(de_profesion)),CURRENT_DATE from ods_dm_profesiones_raw;
+
+INSERT INTO ods_hc_clientes(id_cliente, nombre_apellidos, id_direccion, fc_nacimiento,ins_date)
+select cast(id_cliente as bigint), 
+     concat(upper(trim(nombre_cliente)),' ',upper(trim(apellidos_cliente))), 
+     cast(id_direccion_cliente as bigint),
+     cast(to_date(from_unixtime(unix_timestamp(fc_nacimiento, 'yyyy-MM-dd'))) as date),
+     CURRENT_DATE 
+from ods_hc_clientes_raw;
+
+INSERT INTO ods_hc_servicios (id_cliente,canal_contratacion,ins_date)
+select cast(id_cliente as bigint), upper(trim(de_canal)),CURRENT_DATE from ods_hc_servicios_raw;
+
+
 
 
