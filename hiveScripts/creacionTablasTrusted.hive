@@ -17,8 +17,8 @@ STORED AS AVRO;
 
 create table actividad_redes(
 	usuario string,
-	promedio_tweets bigint,
-	ins_date date)
+	promedio_tweets bigint)
+partitioned by (ins_date date)
 ROW FORMAT DELIMITED FIELDS TERMINATED BY "|"
 STORED AS AVRO;
 
@@ -47,10 +47,9 @@ STORED AS AVRO;
 create table ods_hc_clientes
 (id_cliente bigint, 
 nombre_apellidos string, 
-id_direccion bigint, 
-id_profesion bigint,
 fc_nacimiento date,
 ins_date date)
+partitioned by (id_profesion bigint, id_direccion bigint)
 ROW FORMAT DELIMITED FIELDS TERMINATED BY "|"
 STORED AS AVRO;
 

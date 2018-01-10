@@ -1,13 +1,16 @@
 use kcdba;
 
+set hive.exec.dynamic.partition=true;
+set hive.exec.dynamic.partition.mode=nonstrict;
+
 INSERT INTO capacidad_adquisitiva(ciudad,capacidad_adquisitiva_media,ins_date)
 SELECT upper(trim(nom_ciudad)),cast(cap_adq as bigint),CURRENT_DATE FROM capacidad_adquisitiva_raw;
 
 INSERT INTO sueldos_profesion(profesion,sueldo_medio,ins_date)
 select upper(trim(nom_prof)),cast(sueldo_medio as bigint),CURRENT_DATE FROM profesiones_sueldos_raw;
 
-INSERT INTO actividad_redes(usuario,promedio_tweets,ins_date)
-select upper(trim(usuario)),avg(num_teewts), CURRENT_DATE from actividad_redes_raw group by usuario,fecha;
+INSERT INTO actividad_redes partition(ins_date)
+select upper(trim(usuario)) as usuario,avg(num_teewts) as promedio_tweets, CURRENT_DATE as ins_date from actividad_redes_raw group by usuario,fecha;
 
 INSERT INTO perfiles_usuario(edad_ini,edad_fin,perfil,ins_date)
 select cast(edad_ini as int),cast(edad_fin as int),upper(trim(perfil)),CURRENT_DATE from perfiles_Usuario_raw;
@@ -18,13 +21,14 @@ select  cast(id_direccion as int),upper(trim(de_ciudad)),CURRENT_DATE from ods_d
 INSERT INTO ods_dm_profesiones(id_profesion,de_profesion,ins_date)
 select cast(id_profesion as int),upper(trim(de_profesion)),CURRENT_DATE from ods_dm_profesiones_raw;
 
-INSERT INTO ods_hc_clientes(id_cliente, nombre_apellidos, id_direccion,id_profesion, fc_nacimiento,ins_date)
-select cast(id_cliente as bigint), 
-     concat(upper(trim(nombre_cliente)),' ',upper(trim(apellidos_cliente))), 
-     cast(id_direccion_cliente as bigint),
-     cast(id_profesion as bigint),
-     cast(to_date(from_unixtime(unix_timestamp(fc_nacimiento, 'yyyy-MM-dd'))) as date),
-     CURRENT_DATE 
+INSERT INTO ods_hc_clientes partition (id_profesion, id_direccion)
+select cast(id_cliente as bigint) as id_cliente, 
+     concat(upper(trim(nombre_cliente)),' ',upper(trim(apellidos_cliente))) as nombre_apellidos, 
+     cast(to_date(from_unixtime(unix_timestamp(fc_nacimiento, 'yyyy-MM-dd'))) as date) as fc_nacimiento,
+     CURRENT_DATE as ins_date,
+     cast(id_profesion as bigint) as id_profesion,
+     cast(id_direccion_cliente as bigint) as id_direccion
+      
 from ods_hc_clientes_raw;
 
 INSERT INTO ods_hc_servicios (id_cliente,canal_contratacion,ins_date)
